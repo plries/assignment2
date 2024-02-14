@@ -51,31 +51,64 @@
     
 	<script>
 
+		// creates a list (array) of strings and stores it in a variable called image_root_names
+		const image_root_names = ["Scoop", "Ice", "Drinks", "Tin", "Whisk"];
+
+		// creates an arrow function called first_load that runs when the page initially loads
+		// the old way to write this would be function first_load() { ... }
 		const first_load = () => { 
-			// TODO: set the main image to the first image in the array (index 0)
-			// TODO: set the thumbnail images		
+			
+			set_main_image(0);
+			set_thumbnails();
+
 		}
 	
 		const set_main_image = (index) => {
-			// TODO: set the main-image src image based on the passed parameter	    
-	
-			// TODO: set the hidden textbox to the current index (if you take this approach)	    
-	
-			// update the thumbnails based on the current selection
+
+			// targets the "#main-image" div and replaces the source with the path for the images
+			// we are able to easily change the image source using the array we declared earlier
+			// this is done by passing the corresponding root name via index from the array declared above
+
+			// say we pass in set_main_image(2)
+			// then image_root_names[image_index];
+			// then image_root_names(2);
+			// then "Drinks"
+			// "images/" + "Drinks" + ".jpg";
+			// "images/Drinks.jpg";
+			document.querySelector("#main-image").src = "images/" + image_root_names[index] + ".jpg";
+			
 			update_thumbnails(index);
+
 		}
 	
 		const set_thumbnails = () => {
-			// TODO: declare a variable for the thumbnail strip html (optional)
-	
-			// TODO: loop through the global array and build the html
-			//       - add an onclick handler to each thumbnail to call set_main_image(index)
-	
-			// TODO: add the html to the divThumbArea
+
+			// this arrow function runs for every string/index declared in the image_root_names array
+			image_root_names.forEach( ( image_root_names, index ) => {
+
+			// creates a variable that makes an img element in the HTML 
+			let new_thumb = document.createElement("img");
+
+			// targets the new_thumb and replaces the source with the path for the images
+			// we are able to easily change the image source using the array we declared earlier
+			// this is done by passing the corresponding root name via index from the array declared above
+
+			// say we pass in set_main_image(0)
+			// then image_root_names[image_index];
+			// then image_root_names(0);
+			// then "Scoop"
+			// "images/Thumb" + "Scoop" + ".jpg";
+			// "images/ThumbScoop.jpg";
+			new_thumb.src = "images/Thumb" + image_root_names + ".jpg";	
+
+			// adds the <img> we created above to the "#thumbnail-area" div 
+			document.querySelector("#thumbnail-area").appendChild(new_thumb);
+
+});
 	
 		} 
 	
-		const update_thumbnails = (current_index) => {
+		const update_thumbnails = (current_index) 	=> {
 			// TODO: you'll need to loop through all thumbnails
 			//		- turn on an indicator (eg opacity:1.0) if it's the selected thumb
 			//		- turn off the indicator (eg opacity:0.75) if it's not
@@ -101,7 +134,7 @@
 	
 		window.addEventListener("load", first_load);
 
-	S</script>
+	</script>
 	
 </body>
 </html>
