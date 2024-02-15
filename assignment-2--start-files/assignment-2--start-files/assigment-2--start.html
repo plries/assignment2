@@ -49,113 +49,235 @@
 	    </table>       
 	</div>
     
-	<script>
+<script>
+/* 	Name: 				Paul Aries
+	Student ID: 		A01361366
+	Assignment Name: 	Assignment 2 */
 
-		// creates a list (array) of strings and stores it in a variable called image_root_names
-		const image_root_names = ["Scoop", "Ice", "Drinks", "Tin", "Whisk"];
+	// creates a list (array) of strings and stores it in a variable called image_root_names
+	const image_root_names = ["Scoop", "Ice", "Drinks", "Tin", "Whisk"];
 
-		let current_index = 0;
+	// creates a variable that stores the index position of the main image
+	let current_index = 0;
 
-		// creates an arrow function called first_load that runs when the page initially loads
-		// the old way to write this would be function first_load() { ... }
-		const first_load = () => { 
-			
-			set_main_image(4);
-			set_thumbnails();
-			update_thumbnails();
-
-		}
-	
-		const set_main_image = (image_index) => {
-
-			// targets the "#main-image" div and replaces the source with the path for the images
-			// we are able to easily change the image source using the array we declared earlier
-			// this is done by passing the corresponding root name via index from the array declared above
-
-			// say we pass in set_main_image(2)
-			// then image_root_names[image_index];
-			// then image_root_names(2);
-			// then "Drinks"
-			// "images/" + "Drinks" + ".jpg";
-			// "images/Drinks.jpg";
-			document.querySelector("#main-image").src = "images/" + image_root_names[image_index] + ".jpg";
-			
-			current_index = image_index;
-
-			update_thumbnails(image_index);
-
-		}
-	
-		const set_thumbnails = () => {
-
-			// this arrow function runs for every string/index declared in the image_root_names array
-			image_root_names.forEach( ( image_root_names, image_index) => {
-
-			// creates a variable that makes an img element in the HTML 
-			let new_thumb = document.createElement("img");
-
-			// targets the new_thumb and replaces the source with the path for the images
-			// we are able to easily change the image source using the array we declared earlier
-			// this is done by passing the corresponding root name via index from the array declared above
-
-			// say we pass in set_main_image(0)
-			// then image_root_names[image_index];
-			// then image_root_names(0);
-			// then "Scoop"
-			// "images/Thumb" + "Scoop" + ".jpg";
-			// "images/ThumbScoop.jpg";
-			new_thumb.src = "images/Thumb" + image_root_names + ".jpg";	
-
-			// adds the <img> we created above to the "#thumbnail-area" div 
-			document.querySelector("#thumbnail-area").appendChild(new_thumb);
-
-			// applies class called "thumbnails" to the new_thumb images
-			new_thumb.className = "thumbnails";
-
-});
-	
-		} 
-	
-		const update_thumbnails = (index) => {
-
-			const thumbnail_images = document.querySelectorAll(".thumbnails");
-
-			thumbnail_images.forEach( (thumb_el, loop_index) => {
-
-				thumb_el = (loop_index === current_index) ? thumb_el.style.opacity="1" : thumb_el.style.opacity="0.5" ;
-
-			});
-
-		} 
-	
-		const set_nav_first = () => {
-			// TODO: navigate to the first image (this is the easy one since it's always index zero)
-			const nav_first = document.querySelector("#first_btn");
-
-			let current_index = 0;
-			
-		}
-
+	// creates an arrow function called first_load that runs when the page initially loads
+	// arrow functions is an alternative way to write the traditional function
+	// arrow functions are more compact as they have a different syntax which is first_load = () => { ... }
+	// the old way to write this would be function first_load() { ... }
+	const first_load = () => { 
 		
-	
-		const set_nav_last = () => {
-			// TODO: navigate to the last image (should work for any size array)
-			const nav_last = document.querySelector("#last-btn");
+		// displays the thumbnails when page loads
+		// look to const set_thumbnails arrow function for details
+		set_thumbnails();
 
-		}
-	
-		const set_nav_next = () => {
-			// TODO: move to the next image, unless at the end in which case show the first image
+		// displays the main image when page loads
+		// look to const set_main_image arrow function for details
+		set_main_image(0);
+
+		// allows for first image button to function when page loads
+		// look to const set_nav_first arrow function for details
+		set_nav_first();
+
+		// allows for last image button to function when page loads
+		// look to const set_nav_last arrow function for details
+		set_nav_last();
+
+		// allows for next image button to function when page loads
+		// look to const set_nav_next arrow function for details
+		set_nav_next();
+
+		// allows for previous image button to function when page loads
+		// look to const set_nav_prev arrow function for details
+		set_nav_prev();
+		
+	}
+
+	// creates an arrow function called set_main_image
+	// is invoked when the page first loads due to first_load function declared above
+	const set_main_image = (index) => {
+
+		// targets the "#main-image" div and replaces the source with the path for the images
+		// we are able to easily change the image source using the array we declared earlier
+		// this is done by passing the corresponding root name via index from the array declared above
+
+		// say we pass in set_main_image(2)
+		// then image_root_names[image_index];
+		// then image_root_names(2);
+		// then "Drinks"
+		// "images/" + "Drinks" + ".jpg";
+		// "images/Drinks.jpg";
+		document.querySelector("#main-image").src = "images/" + image_root_names[index] + ".jpg";
+		
+		// updates the global variable
+		current_index = index;
+
+		// runs the update_thumbnails function
+		// updates thumbnails so the highlighted thumbnail matches the main image
+		update_thumbnails(index);
+
+	}
+
+	// creates an arrow function called set_thumbnails
+	// is invoked when the page first loads due to first_load function declared above
+	const set_thumbnails = () => {
+
+		// this arrow function runs for every string/index declared in the image_root_names array
+		image_root_names.forEach( ( image_root_names, index) => {
+
+		// creates a variable that makes an img element in the HTML 
+		const new_thumb = document.createElement("img");
+
+		// targets the new_thumb and replaces the source with the path for the images
+		// we are able to easily change the image source using the array we declared earlier
+		// this is done by passing the corresponding root name via index from the array declared above
+
+		// say we pass in set_main_image(0)
+		// then image_root_names[image_index];
+		// then image_root_names(0);
+		// then "Scoop"
+		// "images/Thumb" + "Scoop" + ".jpg";
+		// "images/ThumbScoop.jpg";
+		new_thumb.src = "images/Thumb" + image_root_names + ".jpg";	
+
+		// adds the <img> we created above to the "#thumbnail-area" div 
+		document.querySelector("#thumbnail-area").append(new_thumb);
+
+		// applies class called "thumbnails" to the new_thumb images
+		// this is so we are able to target the created elements in another function
+		new_thumb.className = "thumbnails";
+
+	});
+
+	}
+
+	// creates an arrow function called update_thumbnails
+	// is invoked when the page set_main_image function is run
+	const update_thumbnails = (current_index) => {
+
+		// creates a variable called thumbnail_images
+		// using the .thumbnails class we assigned in the set_thumbnails function, we are able to target the same thumbnail images in the update_thumbnails function and assign it to to the thumbnail_images variable
+		const thumbnail_images = document.querySelectorAll(".thumbnails");
+
+		// loops through the thumbnail images we created above
+		// on each iteration, we are checking if the thumbnail's index matches the main image's index/current index
+		// this is so the matching thumbnail and remaining thumbnails can be styled accordingly
+		thumbnail_images.forEach( (thumb_el, loop_index) => {
+
+			// if the thumbnail's index matches the current index, apply the styles below
+			if (loop_index === current_index) {
+
+				// if this was written in CSS it would look like:
+				/* thumb_el {
+					opacity: 1;
+					border-radius: 15px;
+					border: solid 5px #E95B2F
+				} */
+				thumb_el.style.opacity = "1.0";
+				thumb_el.style.borderRadius = "15px";
+				thumb_el.style.border = "solid 5px #E95B2F";
+
+			// if the thumbnail's index does NOT match the current index, apply the styles below
+			} else {
+
+				// if this was written in CSS it would look like:
+				/* thumb_el {
+					opacity: 0.25;
+					border-radius: 0px;
+					border: none;
+				} */
+				thumb_el.style.opacity = "0.25";
+				thumb_el.style.borderRadius = "0px";
+				thumb_el.style.border = "none";
+
+			};
+		})
+	} 
+
+	// creates an arrow function called set_nav_first
+	// is invoked when the page first loads due to first_load function declared above
+	const set_nav_first = () => {
+		
+		// creates a variable called nav_first
+		// this variable is assigned the HTML element with the id #first-btn
+		const nav_first = document.querySelector("#first-btn");
+
+		// adds an eventListener to nav_first that runs arrow function when clicked
+		nav_first.addEventListener("click", () => {
 			
-		}
-	
-		const set_nav_prev = () => {
-			// TODO: move to the previous image, unless at the end in which case show the last image
-		}	
-	
-		window.addEventListener("load", first_load);
+			// when the HTML element is clicked, the set_main_image index is set to (0) 
+			set_main_image(0);
 
-	</script>
-	
+		});
+	}
+
+	// creates an arrow function called set_nav_last
+	// is invoked when the page first loads due to first_load function declared above
+	const set_nav_last = () => {
+
+		// creates a variable called nav_last
+		// this variable is assigned the HTML element with the id #last-btn
+		const nav_last = document.querySelector("#last-btn");
+
+		// adds an eventListener to nav_last that runs arrow function when clicked
+		nav_last.addEventListener("click", () => {
+			
+			// when the HTML element is clicked, the set_main_image index is set to 4
+			// this is because the image_root_names array that we declared globally is 5 items long
+			// when we -1 from the array we are left with 4, which is the last image's index
+			// this allows for our image slider to be expansive
+			set_main_image(image_root_names.length -1);
+
+		});
+	}
+
+	// creates an arrow function called set_nav_next
+	// is invoked when the page first loads due to first_load function declared above
+	const set_nav_next = () => {
+		
+		// creates a variable called nav_next
+		// this variable is assigned the HTML element with id #next-btn
+		const nav_next = document.querySelector("#next-btn");
+
+		// adds an eventListener to nav_next that runs the arrow function when clicked
+		nav_next.addEventListener(("click"), () => {
+
+			// creates a variable that contains a ternary operator
+			// if the current index is greater than or equal to the image_root_names.length -1 (4), then set the current index to 0
+			// if the current index is less than 4, then add 1 to the current index
+			const next_image = (current_index >= image_root_names.length -1) ? 0 : current_index + 1;
+
+			// updates the main image in accordance with the next_image ternary operator
+			set_main_image(next_image);
+
+		});
+	}
+
+	// creates an arrow function called set_nav_prev
+	// is invoked when the page first loads due to first_load function declared above
+	const set_nav_prev = () => {
+		
+		// creates a variable called nav_prev
+		// this variable is assigned the HTML element with id #prev-btn
+		const nav_prev = document.querySelector("#prev-btn");
+
+		// adds an eventListener to nav_next that runs the arrow function when clicked
+		nav_prev.addEventListener(("click"), () => {
+
+			// creates a variable that contains a ternary operator
+			// if the current index is equal to 0, then set the current index to image_root_names.length -1 or 4
+			// if the current index is less than 4, then subtract 1 from the current index
+			const prev_image = (current_index == 0) ? image_root_names.length - 1 : current_index - 1;
+
+			// updates the main image in accordance with the prev_image ternary operator
+			set_main_image(prev_image);
+
+		});
+	}	
+
+	// when the window loads, it will invoke the first_load function declared above
+	window.addEventListener("load", first_load);
+
+</script>
+
 </body>
 </html>
