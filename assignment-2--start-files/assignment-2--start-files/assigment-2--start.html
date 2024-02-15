@@ -43,7 +43,7 @@
 	            </td>
 	            <td>
 	                <img src="images/next.png" id="next-btn" />            
-	                <img src="images/last.png" id="prev-btn" />
+	                <img src="images/last.png" id="last-btn" />
 	            </td>
 	        </tr>	    
 	    </table>       
@@ -54,16 +54,19 @@
 		// creates a list (array) of strings and stores it in a variable called image_root_names
 		const image_root_names = ["Scoop", "Ice", "Drinks", "Tin", "Whisk"];
 
+		let current_index = 0;
+
 		// creates an arrow function called first_load that runs when the page initially loads
 		// the old way to write this would be function first_load() { ... }
 		const first_load = () => { 
 			
-			set_main_image(0);
+			set_main_image(4);
 			set_thumbnails();
+			update_thumbnails();
 
 		}
 	
-		const set_main_image = (index) => {
+		const set_main_image = (image_index) => {
 
 			// targets the "#main-image" div and replaces the source with the path for the images
 			// we are able to easily change the image source using the array we declared earlier
@@ -75,16 +78,18 @@
 			// then "Drinks"
 			// "images/" + "Drinks" + ".jpg";
 			// "images/Drinks.jpg";
-			document.querySelector("#main-image").src = "images/" + image_root_names[index] + ".jpg";
+			document.querySelector("#main-image").src = "images/" + image_root_names[image_index] + ".jpg";
 			
-			update_thumbnails(index);
+			current_index = image_index;
+
+			update_thumbnails(image_index);
 
 		}
 	
 		const set_thumbnails = () => {
 
 			// this arrow function runs for every string/index declared in the image_root_names array
-			image_root_names.forEach( ( image_root_names, index ) => {
+			image_root_names.forEach( ( image_root_names, image_index) => {
 
 			// creates a variable that makes an img element in the HTML 
 			let new_thumb = document.createElement("img");
@@ -104,23 +109,39 @@
 			// adds the <img> we created above to the "#thumbnail-area" div 
 			document.querySelector("#thumbnail-area").appendChild(new_thumb);
 
+			// applies class called "thumbnails" to the new_thumb images
+			new_thumb.className = "thumbnails";
+
 });
 	
 		} 
 	
-		const update_thumbnails = (current_index) 	=> {
-			// TODO: you'll need to loop through all thumbnails
-			//		- turn on an indicator (eg opacity:1.0) if it's the selected thumb
-			//		- turn off the indicator (eg opacity:0.75) if it's not
+		const update_thumbnails = (index) => {
+
+			const thumbnail_images = document.querySelectorAll(".thumbnails");
+
+			thumbnail_images.forEach( (thumb_el, loop_index) => {
+
+				thumb_el = (loop_index === current_index) ? thumb_el.style.opacity="1" : thumb_el.style.opacity="0.5" ;
+
+			});
+
 		} 
 	
 		const set_nav_first = () => {
 			// TODO: navigate to the first image (this is the easy one since it's always index zero)
+			const nav_first = document.querySelector("#first_btn");
+
+			let current_index = 0;
 			
 		}
+
+		
 	
 		const set_nav_last = () => {
 			// TODO: navigate to the last image (should work for any size array)
+			const nav_last = document.querySelector("#last-btn");
+
 		}
 	
 		const set_nav_next = () => {
