@@ -198,14 +198,11 @@
 	const set_nav_first = () => {
 		
 		// creates a variable called nav_first
-		// this variable is assigned the HTML element with the id #first-btn
-		const nav_first = document.querySelector("#first-btn");
-
-		// adds an eventListener to nav_first that runs arrow function when clicked
-		nav_first.addEventListener("click", () => {
+		// this variable is assigned the HTML element with the id #first-btn	
+		const nav_first = document.querySelector("#first-btn").addEventListener("click", () => {
 			
 			// when the HTML element is clicked, the set_main_image index is set to (0) 
-			set_main_image(0);
+			set_main_image(0);;
 
 		});
 	}
@@ -216,11 +213,9 @@
 
 		// creates a variable called nav_last
 		// this variable is assigned the HTML element with the id #last-btn
-		const nav_last = document.querySelector("#last-btn");
-
 		// adds an eventListener to nav_last that runs arrow function when clicked
-		nav_last.addEventListener("click", () => {
-			
+		const nav_last = document.querySelector("#last-btn").addEventListener("click", () => {;
+
 			// when the HTML element is clicked, the set_main_image index is set to 4
 			// this is because the image_root_names array that we declared globally is 5 items long
 			// when we -1 from the array we are left with 4, which is the last image's index
@@ -236,10 +231,8 @@
 		
 		// creates a variable called nav_next
 		// this variable is assigned the HTML element with id #next-btn
-		const nav_next = document.querySelector("#next-btn");
-
 		// adds an eventListener to nav_next that runs the arrow function when clicked
-		nav_next.addEventListener(("click"), () => {
+		const nav_next = document.querySelector("#next-btn").addEventListener(("click"), () => {;
 
 			// creates a variable that contains a ternary operator
 			// if the current index is greater than or equal to the image_root_names.length -1 (4), then set the current index to 0
@@ -258,10 +251,8 @@
 		
 		// creates a variable called nav_prev
 		// this variable is assigned the HTML element with id #prev-btn
-		const nav_prev = document.querySelector("#prev-btn");
-
 		// adds an eventListener to nav_next that runs the arrow function when clicked
-		nav_prev.addEventListener(("click"), () => {
+		const nav_prev = document.querySelector("#prev-btn").addEventListener(("click"), () => {;
 
 			// creates a variable that contains a ternary operator
 			// if the current index is equal to 0, then set the current index to image_root_names.length -1 or 4
